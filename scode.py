@@ -33,3 +33,12 @@ def crossover(parent1, parent2):
     child1 = parent1[:point] + parent2[point:]
     child2 = parent2[:point] + parent1[point:]
     return child1, child2
+
+
+
+# جهش (mutation)
+def mutate(chromosome, mutation_rate):
+    for i in range(len(chromosome)):
+        if random.random() < mutation_rate:
+            chromosome[i] = 1 - chromosome[i]  # تعویض 0 به 1 و بالعکس
+    return chromosome 
