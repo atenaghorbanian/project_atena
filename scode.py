@@ -1,3 +1,4 @@
+ maryam mollaei changing in file 
 # تنظیمات
 POPULATION_SIZE = 50
 GENE_LENGTH = 10
