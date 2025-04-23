@@ -16,3 +16,13 @@ def create_population(size, gene_length):
         chromosome = [random.randint(0, 1) for _ in range(gene_length)]
         population.append(chromosome)
     return population
+
+    # انتخاب والدین (tournament selection)
+def selection(population, fitness_function):
+    tournament_size = 3
+    selected = []
+    for _ in range(len(population)):
+        tournament = random.sample(population, tournament_size)
+        best = max(tournament, key=fitness_function)
+        selected.append(best)
+    return selected
