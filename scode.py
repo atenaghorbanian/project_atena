@@ -42,3 +42,39 @@ def mutate(chromosome, mutation_rate):
         if random.random() < mutation_rate:
             chromosome[i] = 1 - chromosome[i]  # تعویض 0 به 1 و بالعکس
     return chromosome 
+
+
+    # اجرای الگوریتم ژنتیک
+def genetic_algorithm():
+    population = create_population(POPULATION_SIZE, GENE_LENGTH)
+
+    for generation in range(GENERATIONS):
+        # ارزیابی fitness
+        fitness_scores = [fitness(chromosome) for chromosome in population]
+
+        # انتخاب
+        selected_parents = selection(population, fitness)
+
+        # تولید نسل جدید از طریق تقاطع و جهش
+        new_population = []
+        for i in range(0, len(selected_parents), 2):
+            parent1 = selected_parents[i]
+            parent2 = selected_parents[i+1] if i+1 < len(selected_parents) else selected_parents[i] # Handle odd population size
+            child1, child2 = crossover(parent1, parent2)
+            child1 = mutate(child1, MUTATION_RATE)
+            child2 = mutate(child2, MUTATION_RATE)
+            new_population.append(child1)
+            new_population.append(child2)
+
+        population = new_population[:POPULATION_SIZE] # Keep population size constant
+
+        # نمایش بهترین نتیجه در هر نسل
+        best_chromosome = max(population, key=fitness)
+        print(f"نسل {generation+1}: بهترین fitness = {fitness(best_chromosome)}, کروموزوم = {best_chromosome}")
+
+    # نمایش بهترین نتیجه نهایی
+    best_chromosome = max(population, key=fitness)
+    print(f"بهترین کروموزوم نهایی: {best_chromosome}, fitness = {fitness(best_chromosome)}")
+
+# اجرای الگوریتم
+genetic_algorithm()
